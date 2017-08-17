@@ -2,15 +2,21 @@ from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from Task1.myapp import views as core_views
+from myapp import views as core_views
+from myapp import views
+
+
 
 app_name ='myapp'
 
 urlpatterns=[
-    url(r'^login/$', auth_views.login,{'template_name': 'login.html'}, name='login'),
-    url(r'^logout/$', auth_views.logout,{'next_page': 'login.html'}, name='logout'),
-    url(r'^signup/$', core_views.signup, name='signup'),
-
+    url(r'fts',views.fts,name='files'),
+    url(r'^$',views.base,name='base'),
+    url(r'^upload/',views.upload,name='upload'),
+    url(r'^login/',views.login1, name='login'),
+    url(r'^logout/$',views.logout1, name='logout'),
+    url(r'^registeration/', core_views.signup, name='registeration'),
+    url(r'^download/(?P<filename>.+)$',views.download, name='download'),
 ]
 
 if settings.DEBUG:

@@ -25,20 +25,25 @@ SECRET_KEY = 'wvg^(ld@lqr8^l%a6x+208^)bm-^z+pb=tbvc8u0$!$fkx^ybv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = 'files._to_see.html'
 
+AUTH_USER_MODEL = 'myapp.User1'
 
 # Application definition
 
 INSTALLED_APPS = (
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'myapp'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,12 +57,18 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+
+    )
+
 ROOT_URLCONF = 'task.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'myapp/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

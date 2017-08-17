@@ -1,18 +1,21 @@
-import datetime
 from django.db import models
-from django.utils import timezone
-from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
-
-class Document(models.Model):
-    description = models.CharField(max_length=255, blank=True)
-    document = models.FileField(upload_to='documents/%Y/%m/%d/')
-
-
-class User1(User):
+class User1(AbstractUser):
     company_name = models.CharField(max_length=200)
-    Job = models.CharField(max_length=200)
+    job = models.CharField(max_length=200)
+
     def __str__(self):
         return self.company_name
+
+class Document(models.Model):
+    user1 = models.ForeignKey(User1, on_delete=models.CASCADE, null=True)
+    description = models.CharField(max_length=255, blank=False)
+    document = models.FileField(upload_to='documents/%Y/%m/%d/')
+
+    def __str__(self):
+        return self.description
+
+
+

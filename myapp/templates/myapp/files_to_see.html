@@ -1,0 +1,22 @@
+<html>
+
+<h1><a href="{% url 'myapp:logout' %}">logout</a></h1>
+
+
+<table border="1" colspan="2" width="100%">
+   <tr>
+     <th width="60%">File</td>
+     <th width="40%">Download</td>
+   </tr>
+ {% for x in latest_question_list %}
+   <tr>
+       <td width="60%">{{x.description}} <b>and</b> {{x.user1.username}}  </td>
+
+     <td width="40%" align="center"><a href="/download/{{x.document}}" style="text-decoration:None">Download here</a></td>
+   </tr>
+ {% endfor %}
+</table>
+
+
+
+</html>
