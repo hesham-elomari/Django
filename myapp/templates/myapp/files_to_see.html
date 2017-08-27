@@ -8,11 +8,20 @@
      <th width="60%">File</td>
      <th width="40%">Download</td>
    </tr>
+
  {% for x in latest_question_list %}
    <tr>
-       <td width="60%">{{x.description}} <b>and</b> {{x.user1.username}}  </td>
 
-     <td width="40%" align="center"><a href="/download/{{x.document}}" style="text-decoration:None">Download here</a></td>
+       {%ifequal user.company_name x.user1.company_name%}
+
+       <td width="60%">{{x.document}} <b>and</b> {{x.user1.company_name}}  </td>
+
+       <td width="40%" align="center"> <form method="post" action="{% url 'myapp:download' filename=x.document %}" /> {% csrf_token %} <input type="submit" value="Download" > </td>
+
+
+       {%endifequal%}
+
+
    </tr>
  {% endfor %}
 </table>

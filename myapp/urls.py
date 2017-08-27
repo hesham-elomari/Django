@@ -1,7 +1,6 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import views as auth_views
 from myapp import views as core_views
 from myapp import views
 
@@ -17,6 +16,7 @@ urlpatterns=[
     url(r'^logout/$',views.logout1, name='logout'),
     url(r'^registeration/', core_views.signup, name='registeration'),
     url(r'^download/(?P<filename>.+)$',views.download, name='download'),
+    url(r'^api/',include('myapp.api.urls',namespace='user1-api'))
 ]
 
 if settings.DEBUG:

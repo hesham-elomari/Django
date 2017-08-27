@@ -32,10 +32,11 @@ LOGIN_REDIRECT_URL = 'files._to_see.html'
 
 AUTH_USER_MODEL = 'myapp.User1'
 
-# Application definition
+# Application definition*
 
 INSTALLED_APPS = (
-
+    'django_crontab',
+    "django_cron",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,8 +44,21 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'myapp'
+    'myapp',
+    'rest_framework'
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ],
+    'PAGE_SIZE': 10
+}
+
+
+# CRONJOBS = [
+#     ('*/1 * * * *','myapp.cron.last_logged','>> /var/log/cron.log')
+# ]
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -57,11 +71,15 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
+CRONTAB_COMMAND_SUFFIX = '2>&1'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 
     )
+
+
+
 
 ROOT_URLCONF = 'task.urls'
 
@@ -84,7 +102,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'task.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
@@ -95,9 +112,9 @@ DATABASES = {
     }
 }
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
+# CRON_CLASSES = {
+#     "myapp.cron.MyCronJob"
+# }
 
 LANGUAGE_CODE = 'en-us'
 
