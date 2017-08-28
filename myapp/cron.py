@@ -1,8 +1,6 @@
 import pytz
-from myapp.models import User1
+from models import User1
 from datetime import datetime
-
-
 def del_user(username):
     u = User1.objects.get(username = username)
     u.delete()
@@ -10,7 +8,7 @@ def del_user(username):
 def last_logged():
     z = User1.objects.all()
     for x in z:
-       if (datetime.now().replace(tzinfo=pytz.UTC) - x.last_login).seconds > 0:
+       if (datetime.now().replace(tzinfo=pytz.UTC) - x.last_login).days > 30:
            del_user(x.username)
        else:
            continue

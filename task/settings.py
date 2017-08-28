@@ -35,6 +35,7 @@ AUTH_USER_MODEL = 'myapp.User1'
 # Application definition*
 
 INSTALLED_APPS = (
+    'myapp',
     'django_crontab',
     "django_cron",
     'django.contrib.admin',
@@ -44,8 +45,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'myapp',
-    'rest_framework'
+    'rest_framework',
 )
 
 REST_FRAMEWORK = {
@@ -56,9 +56,10 @@ REST_FRAMEWORK = {
 }
 
 
-# CRONJOBS = [
-#     ('*/1 * * * *','myapp.cron.last_logged','>> /var/log/cron.log')
-# ]
+CRONJOBS = [
+    ('* * * * *','myapp.cron.last_logged','>> /var/log/cron.log')
+
+]
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -102,8 +103,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'task.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny'
+    )
+}
 
 DATABASES = {
     'default': {
@@ -112,9 +117,7 @@ DATABASES = {
     }
 }
 
-# CRON_CLASSES = {
-#     "myapp.cron.MyCronJob"
-# }
+
 
 LANGUAGE_CODE = 'en-us'
 

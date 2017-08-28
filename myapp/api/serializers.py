@@ -1,5 +1,3 @@
-from prompt_toolkit.validation import ValidationError
-
 from myapp.models import User1
 from rest_framework.serializers import ModelSerializer
 
